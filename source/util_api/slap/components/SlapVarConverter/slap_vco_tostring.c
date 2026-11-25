@@ -261,6 +261,8 @@ SlapVcoUcharArrayToString
             if(rc < EOK)
             {
                 ERR_CHK(rc);
+                /* CID 62745: RESOURCE_LEAK fix */
+                AnscFreeMemory(var_string);
                 return NULL;
             }
         }
@@ -476,6 +478,7 @@ SlapVcoIp4AddrToString
 {
     UNREFERENCED_PARAMETER(hThisObject);
     char*                           var_string   = (char*                     )AnscAllocateMemory(32);
+    uint32_t                        ip4_addr32   = (uint32_t)ip4_addr;
 
     if ( !var_string )
     {
@@ -483,7 +486,7 @@ SlapVcoIp4AddrToString
     }
     else
     {
-        AnscGetIpAddrString(((PUCHAR)&ip4_addr), var_string);
+        AnscGetIpAddrString((PUCHAR)&ip4_addr32, var_string);
     }
 
     return  var_string;
@@ -530,6 +533,7 @@ SlapVcoIp4AddrToString2
 {
     UNREFERENCED_PARAMETER(hThisObject);
     char*                           var_string   = (char*                     )AnscAllocateMemory(32);
+    uint32_t                        ip4_addr32   = (uint32_t)ip4_addr;
 
     if ( !var_string )
     {
@@ -541,7 +545,7 @@ SlapVcoIp4AddrToString2
     }
     else
     {
-        AnscGetIpAddrString(((PUCHAR)&ip4_addr), var_string);
+        AnscGetIpAddrString((PUCHAR)&ip4_addr32, var_string);
     }
 
     return  var_string;
@@ -620,6 +624,8 @@ SlapVcoIp4AddrListToString
                 if(rc < EOK)
                 {
                     ERR_CHK(rc);
+                    /* CID 62225: RESOURCE_LEAK fix */
+                    AnscFreeMemory(var_string);
                     return NULL;
                 }
             }
@@ -638,6 +644,8 @@ SlapVcoIp4AddrListToString
                 if(rc < EOK)
                 {
                     ERR_CHK(rc);
+                    /* CID 62225: RESOURCE_LEAK fix */
+                    AnscFreeMemory(var_string);
                     return NULL;
                 }
             }
@@ -757,6 +765,8 @@ SlapVcoIp6AddrListToString
             if(rc < EOK)
             {
                 ERR_CHK(rc);
+                /* CID 62912: RESOURCE_LEAK fix */
+                AnscFreeMemory(var_string);
                 return NULL;
             }
         }
@@ -840,6 +850,8 @@ SlapVcoMacAddrToString
         if(rc < EOK)
         {
             ERR_CHK(rc);
+            /* CID 62194: RESOURCE_LEAK fix */
+            AnscFreeMemory(var_string);
             return NULL;
         }
     }
@@ -918,6 +930,8 @@ SlapVcoMacAddrToString2
         if(rc < EOK)
         {
             ERR_CHK(rc);
+            /* CID 62865: RESOURCE_LEAK fix */
+            AnscFreeMemory(var_string);
             return NULL;
         }
     }
@@ -988,6 +1002,8 @@ SlapVcoMacAddrListToString
             if(rc < EOK)
             {
                 ERR_CHK(rc);
+                /* CID 62296: RESOURCE_LEAK fix */
+                AnscFreeMemory(var_string);
                 return NULL;
             }
         }
@@ -1002,6 +1018,8 @@ SlapVcoMacAddrListToString
         if(rc < EOK)
         {
             ERR_CHK(rc);
+            /* CID 62296: RESOURCE_LEAK fix */
+            AnscFreeMemory(var_string);
             return NULL;
         }
     }
@@ -1073,6 +1091,8 @@ SlapVcoOidListToString
             if(rc < EOK)
             {
                 ERR_CHK(rc);
+                /* CID 62282: RESOURCE_LEAK fix */
+                AnscFreeMemory(var_string);
                 return NULL;
             }
         }
@@ -1145,6 +1165,8 @@ SlapVcoCalendarTimeToString
     if(rc < EOK)
     {
         ERR_CHK(rc);
+        /* CID 62419: RESOURCE_LEAK fix */
+        AnscFreeMemory(var_string);
         return NULL;
     }
 
@@ -1207,6 +1229,8 @@ SlapVcoUint32ToHexString
         if(rc < EOK)
         {
             ERR_CHK(rc);
+            /* CID 62373: RESOURCE_LEAK fix */
+            AnscFreeMemory(var_string);
             return NULL;
         }
     }
